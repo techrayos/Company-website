@@ -66,8 +66,8 @@ ${formData.message}
     {
       icon: Mail,
       title: 'Email',
-      value: 'info.techrayos@gmail.com',
-      link: 'mailto:info.techrayos@gmail.com',
+      value: 'info@techrays.com',
+      link: 'mailto:info@techrays.com',
       color: 'blue'
     },
     {
