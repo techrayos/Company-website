@@ -13,15 +13,6 @@ const Portfolio: React.FC = () => {
 
   const projects = [
     {
-      title: 'SRM Trader',
-      url: 'https://srmtrader.com/',
-      description: 'Advanced trading platform with real-time market data and sophisticated analytics.',
-      category: 'Financial Technology',
-      image: 'https://images.pexels.com/photos/6801648/pexels-photo-6801648.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2',
-      features: ['Real-time Trading', 'Market Analytics', 'Portfolio Management'],
-      rating: 5
-    },
-    {
       title: 'Dheera Technologies',
       url: 'https://dheeratechnologies.com/',
       description: 'Corporate website showcasing innovative technology solutions and services.',
