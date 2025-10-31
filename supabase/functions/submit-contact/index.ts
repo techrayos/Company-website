@@ -1,6 +1,6 @@
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
-// ✅ Types for incoming request body
+// ✅ Types
 interface ContactFormData {
   name: string;
   email: string;
@@ -11,28 +11,34 @@ interface ContactFormData {
   form_timestamp?: number;
 }
 
-// ✅ Load secrets from Supabase environment
+// ✅ Environment Variables
 const SUPABASE_URL = Deno.env.get("PROJECT_URL")!;
 const SERVICE_ROLE_KEY = Deno.env.get("SERVICE_ROLE_KEY")!;
-// const RECAPTCHA_SECRET = Deno.env.get("RECAPTCHA_SECRET")!; vercel
-const RECAPTCHA_SECRET = Deno.env.get("RECAPTCHA_SECRET_LOCAL")!;  //localhost
+const RECAPTCHA_SECRET =
+  Deno.env.get("VERCEL_ENV") === "production"
+    ? Deno.env.get("RECAPTCHA_SECRET")!
+    : Deno.env.get("RECAPTCHA_SECRET_LOCAL")!;
 const SENDGRID_API_KEY = Deno.env.get("SENDGRID_API_KEY")!;
 const FROM_EMAIL = Deno.env.get("FROM_EMAIL")!;
 const COMPANY_EMAIL = Deno.env.get("COMPANY_EMAIL")!;
+const WEBHOOK_URL =
+  Deno.env.get("SLACK_WEBHOOK_URL") || Deno.env.get("DISCORD_WEBHOOK_URL");
 
 const supabase = createClient(SUPABASE_URL, SERVICE_ROLE_KEY);
 
-// ✅ CORS Handling
+// ✅ CORS
 function getCorsHeaders(req: Request): Record<string, string> {
   const allowedOrigins = [
     "http://localhost:5173",
+    "https://techrayos.com",
+    "https://www.techrayos.com",
     "https://techrayos-portfolio.vercel.app",
   ];
   const origin = req.headers.get("origin") || "";
   return {
     "Access-Control-Allow-Origin": allowedOrigins.includes(origin)
       ? origin
-      : "https://techrayos-portfolio.vercel.app",
+      : "https://techrayos.com",
     "Access-Control-Allow-Headers":
       "authorization, x-client-info, apikey, content-type",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
@@ -54,62 +60,104 @@ async function verifyRecaptcha(token: string, remoteip?: string) {
   return resp.json();
 }
 
-// 📩 Send Email with SendGrid
-async function sendEmail(name: string, userEmail: string, message: string) {
+// 📩 Send Emails with SendGrid
+async function sendEmails(name: string, userEmail: string, phone: string, message: string) {
   try {
-    const response = await fetch("https://api.sendgrid.com/v3/mail/send", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${SENDGRID_API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        personalizations: [
-          {
-            to: [{ email: userEmail }],
-            bcc: [{ email: COMPANY_EMAIL }],
-            subject: `📩 Thank you ${name}, we received your message!`,
-          },
-        ],
-        from: { email: FROM_EMAIL, name: "Techrayos" },
-        reply_to: { email: COMPANY_EMAIL },
-        content: [
-          {
-            type: "text/html",
-            value: `
-              <div style="font-family:'Segoe UI',Tahoma,Verdana,sans-serif;background-color:#f9f9f9;padding:20px;">
-                <div style="max-width:600px;background:#fff;border-radius:10px;padding:25px;margin:0 auto;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
-                  <h2 style="color:#2563eb;text-align:center;margin-bottom:20px;">
-                    ✅ Thank You for Contacting Techrayos!
-                  </h2>
-                  <p style="font-size:16px;color:#333;">
-                    Hi <strong>${name}</strong>,<br/>
-                    We’ve successfully received your message. Our team will get back to you shortly.
-                  </p>
-                  <p style="font-size:16px;color:#333;">
-                    <strong>Your Message:</strong><br/>
-                    ${message}
-                  </p>
-                  <hr style="margin:20px 0;"/>
-                  <p style="font-size:13px;color:#888;text-align:center;">
-                    📩 This is an automated response from Techrayos.<br/>
-                    Please do not reply to this email.
-                  </p>
-                </div>
-              </div>`,
-          },
-        ],
-      }),
-    });
+    // 1️⃣ Confirmation Email to User
+    const userMail = {
+      personalizations: [
+        {
+          to: [{ email: userEmail }],
+          bcc: [{ email: COMPANY_EMAIL }],
+          subject: `📩 Thank you ${name}, we received your message!`,
+        },
+      ],
+      from: { email: FROM_EMAIL, name: "Techrayos" },
+      reply_to: { email: COMPANY_EMAIL },
+      content: [
+        {
+          type: "text/html",
+          value: `
+          <div style="font-family:'Segoe UI',Tahoma,Verdana,sans-serif;background:#f9f9f9;padding:20px;">
+            <div style="max-width:600px;background:#fff;border-radius:10px;padding:25px;margin:auto;box-shadow:0 4px 12px rgba(0,0,0,0.1);">
+              <h2 style="color:#2563eb;text-align:center;margin-bottom:20px;">✅ Thank You for Contacting Techrayos!</h2>
+              <p style="font-size:16px;color:#333;">Hi <strong>${name}</strong>,<br/>We’ve received your message. Our team will get back to you shortly.</p>
+              <p style="font-size:16px;color:#333;"><strong>Your Message:</strong><br/>${message}</p>
+              <hr style="margin:20px 0;"/>
+              <p style="font-size:13px;color:#888;text-align:center;">📩 This is an automated response from Techrayos. Please do not reply to this email.</p>
+            </div>
+          </div>`,
+        },
+      ],
+    };
 
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error("📩 SendGrid failed:", errText);
-    } else {
-      console.log(`✅ Email sent to ${userEmail}`);
+    // 2️⃣ Internal Notification Email
+    const adminMail = {
+      personalizations: [
+        {
+          to: [{ email: COMPANY_EMAIL }],
+          subject: `📬 New Contact Form Submission — ${name}`,
+        },
+      ],
+      from: { email: FROM_EMAIL, name: "Techrayos Website" },
+      content: [
+        {
+          type: "text/html",
+          value: `
+          <h3>New Contact Form Submission</h3>
+          <p><strong>Name:</strong> ${name}</p>
+          <p><strong>Email:</strong> ${userEmail}</p>
+          <p><strong>Phone:</strong> ${phone}</p>
+          <p><strong>Message:</strong><br/>${message}</p>
+          <hr/>
+          <p style="color:#999;font-size:12px;">This alert was generated by Techrayos.com.</p>`,
+        },
+      ],
+    };
+
+    for (const mail of [userMail, adminMail]) {
+      const res = await fetch("https://api.sendgrid.com/v3/mail/send", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${SENDGRID_API_KEY}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(mail),
+      });
+      if (!res.ok) console.error("⚠️ SendGrid error:", await res.text());
     }
+
+    console.log("✅ Emails sent successfully");
   } catch (err) {
     console.error("📩 SendGrid error:", err);
+  }
+}
+
+// 🔔 Slack or Discord Webhook Notification
+async function sendWebhookAlert(name: string, email: string, phone: string, message: string) {
+  if (!WEBHOOK_URL) return;
+
+  const payload = {
+    username: "Techrayos Bot 🤖",
+    content: `
+**New Contact Form Submission**
+> **Name:** ${name}
+> **Email:** ${email}
+> **Phone:** ${phone}
+> **Message:** ${message}
+    `,
+  };
+
+  try {
+    const res = await fetch(WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+    if (!res.ok) console.error("⚠️ Webhook failed:", await res.text());
+    else console.log("✅ Webhook alert sent");
+  } catch (err) {
+    console.error("Webhook error:", err);
   }
 }
 
@@ -117,45 +165,37 @@ async function sendEmail(name: string, userEmail: string, message: string) {
 Deno.serve(async (req: Request) => {
   const corsHeaders = getCorsHeaders(req);
 
-  if (req.method === "OPTIONS") {
+  if (req.method === "OPTIONS")
     return new Response("ok", { headers: corsHeaders });
-  }
 
-  if (req.method !== "POST") {
+  if (req.method !== "POST")
     return new Response(JSON.stringify({ error: "Method not allowed" }), {
       status: 405,
       headers: corsHeaders,
     });
-  }
 
   try {
     const body: ContactFormData = await req.json();
     const { name, email, phone, message, recaptcha_token, honeypot, form_timestamp } = body;
 
-    // 🧾 Validation
-    if (!name || !email || !phone || !message || !recaptcha_token) {
+    if (!name || !email || !phone || !message || !recaptcha_token)
       return new Response(JSON.stringify({ error: "Missing required fields" }), {
         status: 400,
         headers: corsHeaders,
       });
-    }
 
-    if (honeypot && honeypot.trim() !== "") {
-      console.warn("🚨 Honeypot triggered — bot detected.");
+    if (honeypot && honeypot.trim() !== "")
       return new Response(JSON.stringify({ error: "Bot detected" }), {
         status: 400,
         headers: corsHeaders,
       });
-    }
 
     const now = Date.now();
-    if (!form_timestamp || now - Number(form_timestamp) < 2000) {
-      console.warn("🚨 Suspicious fast submission.");
+    if (!form_timestamp || now - Number(form_timestamp) < 2000)
       return new Response(JSON.stringify({ error: "Suspicious submission" }), {
         status: 400,
         headers: corsHeaders,
       });
-    }
 
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
@@ -163,48 +203,44 @@ Deno.serve(async (req: Request) => {
       req.headers.get("cf-connecting-ip") ||
       "unknown";
 
-    // ✅ Verify reCAPTCHA
+    // 🧠 Verify reCAPTCHA
     const vr = await verifyRecaptcha(recaptcha_token, ip);
-    if (!vr || !vr.success) {
-      console.warn("🚨 reCAPTCHA failed:", vr);
-      return new Response(
-        JSON.stringify({ error: "Bot verification failed" }),
-        { status: 400, headers: corsHeaders }
-      );
-    }
+    if (!vr || !vr.success)
+      return new Response(JSON.stringify({ error: "Bot verification failed" }), {
+        status: 400,
+        headers: corsHeaders,
+      });
 
-    // 🛡️ Rate limit per IP
+    // 🛡️ Rate Limit
+    const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();
     const { count } = await supabase
       .from("contact_submission_logs")
-      .select("id", { count: "exact", head: false })
+      .select("id", { count: "exact" })
       .eq("ip", ip)
-      .gte("created_at", "now() - interval '1 hour'");
+      .gte("created_at", oneHourAgo);
 
-    if (count && count >= 5) {
+    if (count && count >= 5)
       return new Response(JSON.stringify({ error: "Too many requests" }), {
         status: 429,
         headers: corsHeaders,
       });
-    }
 
-    // 💾 Insert to DB
+    // 💾 Save to DB
     const { error: insertErr } = await supabase
       .from("contact_submissions")
       .insert([{ name, email, phone, message }]);
 
-    if (insertErr) {
-      console.error("Insert error:", insertErr);
+    if (insertErr)
       return new Response(JSON.stringify({ error: "Database insert failed" }), {
         status: 500,
         headers: corsHeaders,
       });
-    }
 
-    // 📝 Log IP
     await supabase.from("contact_submission_logs").insert([{ ip }]);
 
-    // 📩 Send email
-    await sendEmail(name, email, message);
+    // 📩 Send emails + notification
+    await sendEmails(name, email, phone, message);
+    await sendWebhookAlert(name, email, phone, message);
 
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
