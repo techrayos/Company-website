@@ -15,7 +15,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useForm, Controller } from "react-hook-form";
 import { supabase } from "../lib/supabase";
 
-export default function Career() {
+export default function Internship() {
   const [uploading, setUploading] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [fileName, setFileName] = useState("");

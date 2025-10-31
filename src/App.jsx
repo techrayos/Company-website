@@ -48,7 +48,7 @@ import Transportation from "./pages/industries/Transportation";
 import Agriculture from "./pages/industries/Agriculture";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
-import Career from "./pages/Career";
+import Internship from "./pages/Internship";
 
 export default function App() {
   const location = useLocation();
@@ -72,7 +72,7 @@ export default function App() {
               <Route path="/about" element={<About />} />
               <Route path="/portfolio" element={<Portfolio />} />
               <Route path="/services" element={<Services />} />
-              <Route path="/career" element={<Career />} />
+              <Route path="/Internship" element={<Internship />} />
               <Route path="/industries" element={<ExpandedIndustries />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/technology" element={<Technology />} />

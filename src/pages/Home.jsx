@@ -19,10 +19,7 @@ export default function Home() {
   const opacityValue = useTransform(scrollY, [0, 800], [0.6, 0.3]);
   
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 800); // small delay for smooth fade-in
-    return () => clearTimeout(timer);
+    return setLoading(false);
   }, []);
 
   if (loading) {

@@ -8,10 +8,10 @@ interface CourseFormData {
   last_name: string;
   email: string;
   phone: string;
-  alt_phone?: string;
+  alt_phone: string;
   dob?: string;
   course: string;
-  resume_path?: string; // e.g. "resumes/john_doe_cv.pdf"
+  resume_path: string; // e.g. "resumes/john_doe_cv.pdf"
 }
 
 // ---------------------------
@@ -117,10 +117,10 @@ Deno.serve(async (req: Request) => {
       last_name: body.last_name?.trim(),
       email: body.email?.toLowerCase().trim(),
       phone: body.phone?.trim(),
-      alt_phone: body.alt_phone ? body.alt_phone.trim() : null,
+      alt_phone: body.alt_phone.trim(),
       dob: body.dob || null,
       course: body.course?.trim(),
-      resume_path: body.resume_path || null,
+      resume_path: body.resume_path,
     };
 
     // Replace undefined values with null
@@ -174,7 +174,7 @@ Deno.serve(async (req: Request) => {
             <tr><td><b>Email</b></td><td>${insertPayload.email}</td></tr>
             <tr><td><b>Phone</b></td><td>${insertPayload.phone}</td></tr>
             <tr><td><b>Alt Phone</b></td><td>${
-              insertPayload.alt_phone ?? "N/A"
+              insertPayload.alt_phone
             }</td></tr>
             <tr><td><b>Course</b></td><td>${insertPayload.course}</td></tr>
             <tr><td><b>DOB</b></td><td>${insertPayload.dob ?? "N/A"}</td></tr>
@@ -193,10 +193,10 @@ New Course Submission
 Name: ${applicantFullName}
 Email: ${insertPayload.email}
 Phone: ${insertPayload.phone}
-Alt Phone: ${insertPayload.alt_phone ?? "N/A"}
+Alt Phone: ${insertPayload.alt_phone}
 Course: ${insertPayload.course}
 DOB: ${insertPayload.dob ?? "N/A"}
-Resume: ${resumeSignedUrl ?? "No resume uploaded"}
+Resume: ${resumeSignedUrl}
 `;
 
     // Send email via SendGrid

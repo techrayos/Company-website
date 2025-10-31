@@ -49,7 +49,7 @@ export default function Navbar() {
                 } text-gray-800 dark:text-gray-200 hover:text-blue-600`
               }
             >
-              Portfolio
+              Our Works
             </NavLink>
             <NavLink
               to="/services"
@@ -83,14 +83,14 @@ export default function Navbar() {
               About
             </NavLink>
             <NavLink
-              to="/Career"
+              to="/internship"
               className={({ isActive }) =>
                 `nav-link ${
                   isActive ? "active" : ""
                 } text-gray-800 dark:text-gray-200 hover:text-blue-600`
               }
             >
-              Career
+             Intership
             </NavLink>
 
             <NavLink
@@ -111,7 +111,7 @@ export default function Navbar() {
 
         {isMenuOpen && (
           <div className="relative md:hidden flex flex-col space-y-3 px-4 py-10 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg border-t dark:border-gray-700">
-            {["portfolio", "services", "industries", "about","career"].map((k) => (
+            {["our works", "services", "industries", "about","internship"].map((k) => (
               <Link
                 key={k}
                 to={`/${k}`}
