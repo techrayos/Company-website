@@ -1,26 +1,40 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TECHRAYOS</title>
-    <meta name="description" content="TECHYORA provides comprehensive digital solutions including software development, web design, digital marketing, cloud services, and technology consulting." />
-    <meta name="keywords" content="software development, web design, digital marketing, cloud services, DevOps, IT support, cybersecurity, technology consulting" />
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-    <style>
-      html {
-        scroll-behavior: smooth;
+    <title>Techrayos</title>
+    <!-- Cloudflare Turnstile Script -->
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    ></script>
+
+    <!-- Global callback for Turnstile widget -->
+    <script>
+      function turnstileCallback(token) {
+        window.lastTurnstileToken = token;
+        window.dispatchEvent(
+          new CustomEvent("turnstile-token", { detail: token })
+        );
       }
-      body {
-        font-family: 'Inter', sans-serif;
-      }
-    </style>
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <script type="module" src="/src/main.jsx"></script>
+    <script>
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        document.documentElement.classList.add("dark");
+      } else {
+        document.documentElement.classList.remove("dark");
+      }
+    </script>
   </body>
 </html>
