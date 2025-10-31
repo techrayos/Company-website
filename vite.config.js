@@ -15,4 +15,8 @@ export default defineConfig({
       '@mui/styled-engine': '@mui/styled-engine-sc',
     },
   },
+  build: {
+    // Increase bundle size limit to avoid unnecessary warnings
+    chunkSizeWarningLimit: 1500, // 1.5 MB — safe for Supabase + large UI libs
+  },
 })
