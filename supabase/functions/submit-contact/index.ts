@@ -32,7 +32,7 @@ function getCorsHeaders(req: Request): Record<string, string> {
     "http://localhost:5173",
     "https://techrayos.com",
     "https://www.techrayos.com",
-    "https://techrayos-portfolio.vercel.app",
+    "https://techrayos.vercel.app",
   ];
   const origin = req.headers.get("origin") || "";
   return {

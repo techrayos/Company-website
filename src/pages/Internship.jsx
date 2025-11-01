@@ -96,10 +96,10 @@ export default function Internship() {
         last_name: data.lastName,
         email: data.email,
         phone: data.phone,
-        alt_phone: data.altPhone || null,
+        alt_phone: data.altPhone,
         dob: data.dob,
         course: data.course,
-        resume_path: data.resume || null,
+        resume_path: data.resume,
       };
 
       console.log("📦 Sending payload:", payload);
@@ -337,6 +337,15 @@ export default function Internship() {
                           </MenuItem>
                           <MenuItem value="AI & MERN Stack">
                             AI & MERN Stack
+                          </MenuItem>
+                          <MenuItem value="AI & MERN Stack">
+                            Devops
+                          </MenuItem>
+                          <MenuItem value="AI & MERN Stack">
+                            Python Full Stack
+                          </MenuItem>
+                          <MenuItem value="AI & MERN Stack">
+                            Java Full Stack
                           </MenuItem>
                         </Select>
                       )}
