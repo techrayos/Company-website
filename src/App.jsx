@@ -70,14 +70,14 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/about" element={<About />} />
-              <Route path="/portfolio" element={<Portfolio />} />
+              {/* <Route path="/portfolio" element={<Portfolio />} /> */}
               <Route path="/services" element={<Services />} />
               <Route path="/Internship" element={<Internship />} />
               <Route path="/industries" element={<ExpandedIndustries />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/technology" element={<Technology />} />
               <Route path="/all-products" element={<AllProducts />} />
-              <Route path="/our-works" element={<AllProducts />} />
+              <Route path="/our-works" element={<Portfolio />} />
               
               {/* Admin */}
               <Route path="/admin" element={<AdminPanel />} />
