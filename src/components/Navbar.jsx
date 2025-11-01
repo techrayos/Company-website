@@ -7,6 +7,15 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
+  const navItems = [
+  { name: "Our Works", path: "/our-works" },
+  { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  { name: "Industries", path: "/industries" },
+  { name: "Internship", path: "/internship" }
+];
+
+
   useEffect(() => {
     setIsMenuOpen(false);
   }, [location]);
@@ -41,58 +50,18 @@ export default function Navbar() {
           </Link>
 
           <div className="hidden md:flex items-center space-x-6 text-gray-800 dark:text-gray-200 font-medium">
-            <NavLink
-              to="/portfolio"
-              className={({ isActive }) =>
+            {
+              navItems.map((item) => (
+          <li key={item.path}>
+            <NavLink to={`/${item.path}`} className={({ isActive }) =>
                 `nav-link ${
                   isActive ? "active" : ""
                 } text-gray-800 dark:text-gray-200 hover:text-blue-600`
-              }
-            >
-              Our Works
+              }>
+              {item.name}
             </NavLink>
-            <NavLink
-              to="/services"
-              className={({ isActive }) =>
-                `nav-link ${
-                  isActive ? "active" : ""
-                } text-gray-800 dark:text-gray-200 hover:text-blue-600`
-              }
-            >
-              Services
-            </NavLink>
-
-            <NavLink
-              to="/industries"
-              className={({ isActive }) =>
-                `nav-link ${
-                  isActive ? "active" : ""
-                } text-gray-800 dark:text-gray-200 hover:text-blue-600`
-              }
-            >
-              Industries
-            </NavLink>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                `nav-link ${
-                  isActive ? "active" : ""
-                } text-gray-800 dark:text-gray-200 hover:text-blue-600`
-              }
-            >
-              About
-            </NavLink>
-            <NavLink
-              to="/internship"
-              className={({ isActive }) =>
-                `nav-link ${
-                  isActive ? "active" : ""
-                } text-gray-800 dark:text-gray-200 hover:text-blue-600`
-              }
-            >
-             Intership
-            </NavLink>
-
+          </li>
+        ))}
             <NavLink
               to="/contact"
               className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-2 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all cursor-pointer"
@@ -111,7 +80,7 @@ export default function Navbar() {
 
         {isMenuOpen && (
           <div className="relative md:hidden flex flex-col space-y-3 px-4 py-10 bg-white/10 backdrop-blur-sm border border-white/20 rounded-lg border-t dark:border-gray-700">
-            {["our works", "services", "industries", "about","internship"].map((k) => (
+            {["our-works", "services", "industries", "about","internship"].map((k) => (
               <Link
                 key={k}
                 to={`/${k}`}
