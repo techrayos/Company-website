@@ -113,7 +113,7 @@ export default function Portfolio() {
           <WorkFlow />
 
           {/* Section Heading */}
-          <motion.h1
+          {/* <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
@@ -131,10 +131,10 @@ export default function Portfolio() {
             Explore our featured projects that highlight our expertise in
             delivering impactful and scalable digital solutions across web,
             mobile, and AI platforms.
-          </motion.p>
+          </motion.p> */}
 
           {/* Filter Tabs */}
-          <div className="flex justify-center gap-3 mb-12 flex-wrap">
+          {/* <div className="flex justify-center gap-3 mb-12 flex-wrap">
             {categories.map((category) => (
               <button
                 key={category}
@@ -148,10 +148,10 @@ export default function Portfolio() {
                 {category}
               </button>
             ))}
-          </div>
+          </div> */}
 
           {/* Project Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
             {filteredProjects.map((project, index) => (
               <motion.div
                 key={project.id}
@@ -205,7 +205,7 @@ export default function Portfolio() {
                       Case Study
                     </a>
                   </div>
-                </div> */}
+                </div> 
                 <div className="p-5">
                   <h2 className="text-xl font-semibold mb-2 dark:text-white">
                     {project.title}
@@ -226,7 +226,7 @@ export default function Portfolio() {
                 </div>
               </motion.div>
             ))}
-          </div>
+          </div> */}
         </div>
       </section>
     </PageTransition>

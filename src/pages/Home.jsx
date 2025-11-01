@@ -220,7 +220,7 @@ export default function Home() {
                 src={heroImage.lqip}
                 alt={heroImage.alt}
                 aria-hidden="true"
-                className="absolute inset-0 w-full h-full object-cover scale-105 blur-2xl opacity-70"
+                className="absolute inset-0 w-full h-full object-cover scale-105 blur-2xl opacity-20"
                 style={{ y: yParallax }}
               />
 
