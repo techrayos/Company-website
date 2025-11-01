@@ -77,6 +77,8 @@ export default function App() {
               <Route path="/contact" element={<Contact />} />
               <Route path="/technology" element={<Technology />} />
               <Route path="/all-products" element={<AllProducts />} />
+              <Route path="/our-works" element={<AllProducts />} />
+              
               {/* Admin */}
               <Route path="/admin" element={<AdminPanel />} />
 
