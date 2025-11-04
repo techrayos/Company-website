@@ -3,5 +3,16 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "installCommand": "npm install",
-  "ignoreCommand": "echo 'No build ignored'"
+  "ignoreCommand": "echo 'No build ignored'",
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cache-Control", "value": "public, max-age=31536000, immutable" },
+        { "key": "Content-Encoding", "value": "br" }
+      ]
+    }
+  ]
 }

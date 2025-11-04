@@ -9,20 +9,20 @@ export default defineConfig({
     react(),
     tailwindcss(),
     viteCompression({
-      algorithm: 'brotliCompress', // or 'gzip'
-      ext: '.br', // generate Brotli-compressed files
-      threshold: 1024, // only compress files >1kb
-      deleteOriginFile: false, // keep original uncompressed files
+      algorithm: 'brotliCompress',
+      ext: '.br',
+      threshold: 1024,
+      deleteOriginFile: false,
     }),
     viteCompression({
       algorithm: 'gzip',
-      ext: '.gz', // also generate Gzip files
+      ext: '.gz',
       threshold: 1024,
       deleteOriginFile: false,
     }),
   ],
 
-  base: "/",
+  base: "./",
 
   resolve: {
     alias: {
@@ -36,7 +36,6 @@ export default defineConfig({
     minify: 'esbuild',
     sourcemap: false,
     chunkSizeWarningLimit: 1500,
-
     rollupOptions: {
       output: {
         manualChunks(id) {
