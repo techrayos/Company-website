@@ -49,6 +49,7 @@ import Agriculture from "./pages/industries/Agriculture";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsAndConditions from "./pages/TermsAndConditions";
 import Internship from "./pages/Internship";
+import NotFound404 from "./pages/NotFound404";
 
 export default function App() {
   const location = useLocation();
@@ -151,6 +152,9 @@ export default function App() {
                 path="/terms-and-conditions"
                 element={<TermsAndConditions />}
               />
+
+              {/* Page Not Found section */}
+              <Route path="*" element={<NotFound404 />} />
             </Routes>
           </main>
           <Footer />
