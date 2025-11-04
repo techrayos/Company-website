@@ -235,7 +235,7 @@ export default function Footer() {
         </div>
       </div>
 
-      <div className="relative z-10 text-center text-gray-800 dark:text-gray-100 text-sm mt-10 border-t border-gray-800 pt-4 py-10 md:py-0 md:pt-5 md:px-20 flex justify-between items-center">
+      <div className="relative z-10 text-center text-gray-800 dark:text-gray-100 text-sm mt-10 border-t border-gray-800 pt-4 py-10 md:py-0 md:pt-5 md:px-20 flex flex-col md:flex-row justify-between items-center">
         <div></div>
         © 2025 Techrayos. All rights reserved.
         <div className="flex gap-5">

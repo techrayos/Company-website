@@ -61,7 +61,12 @@ async function verifyRecaptcha(token: string, remoteip?: string) {
 }
 
 // 📩 Send Emails with SendGrid
-async function sendEmails(name: string, userEmail: string, phone: string, message: string) {
+async function sendEmails(
+  name: string,
+  userEmail: string,
+  phone: string,
+  message: string
+) {
   try {
     // 1️⃣ Confirmation Email to User
     const userMail = {
@@ -134,7 +139,12 @@ async function sendEmails(name: string, userEmail: string, phone: string, messag
 }
 
 // 🔔 Slack or Discord Webhook Notification
-async function sendWebhookAlert(name: string, email: string, phone: string, message: string) {
+async function sendWebhookAlert(
+  name: string,
+  email: string,
+  phone: string,
+  message: string
+) {
   if (!WEBHOOK_URL) return;
 
   const payload = {
@@ -176,13 +186,24 @@ Deno.serve(async (req: Request) => {
 
   try {
     const body: ContactFormData = await req.json();
-    const { name, email, phone, message, recaptcha_token, honeypot, form_timestamp } = body;
+    const {
+      name,
+      email,
+      phone,
+      message,
+      recaptcha_token,
+      honeypot,
+      form_timestamp,
+    } = body;
 
     if (!name || !email || !phone || !message || !recaptcha_token)
-      return new Response(JSON.stringify({ error: "Missing required fields" }), {
-        status: 400,
-        headers: corsHeaders,
-      });
+      return new Response(
+        JSON.stringify({ error: "Missing required fields" }),
+        {
+          status: 400,
+          headers: corsHeaders,
+        }
+      );
 
     if (honeypot && honeypot.trim() !== "")
       return new Response(JSON.stringify({ error: "Bot detected" }), {
@@ -190,12 +211,19 @@ Deno.serve(async (req: Request) => {
         headers: corsHeaders,
       });
 
+    // 🕒 Basic sanity check (no hard blocking)
     const now = Date.now();
-    if (!form_timestamp || now - Number(form_timestamp) < 2000)
-      return new Response(JSON.stringify({ error: "Suspicious submission" }), {
-        status: 400,
-        headers: corsHeaders,
-      });
+    if (!form_timestamp) {
+      console.warn(
+        "⚠️ Missing form timestamp. Proceeding since reCAPTCHA passed."
+      );
+    } else if (now - Number(form_timestamp) < 500) {
+      console.warn(
+        `⚠️ Fast submission detected (${
+          now - Number(form_timestamp)
+        }ms). Proceeding since reCAPTCHA passed.`
+      );
+    }
 
     const ip =
       req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
@@ -206,10 +234,13 @@ Deno.serve(async (req: Request) => {
     // 🧠 Verify reCAPTCHA
     const vr = await verifyRecaptcha(recaptcha_token, ip);
     if (!vr || !vr.success)
-      return new Response(JSON.stringify({ error: "Bot verification failed" }), {
-        status: 400,
-        headers: corsHeaders,
-      });
+      return new Response(
+        JSON.stringify({ error: "Bot verification failed" }),
+        {
+          status: 400,
+          headers: corsHeaders,
+        }
+      );
 
     // 🛡️ Rate Limit
     const oneHourAgo = new Date(Date.now() - 60 * 60 * 1000).toISOString();

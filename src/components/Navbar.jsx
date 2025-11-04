@@ -51,16 +51,14 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center space-x-6 text-gray-800 dark:text-gray-200 font-medium">
             {
-              navItems.map((item) => (
-          <li key={item.path}>
-            <NavLink to={`/${item.path}`} className={({ isActive }) =>
+              navItems.map((item, index) => (
+            <NavLink key={index} to={item.path} className={({ isActive }) =>
                 `nav-link ${
                   isActive ? "active" : ""
                 } text-gray-800 dark:text-gray-200 hover:text-blue-600`
               }>
               {item.name}
             </NavLink>
-          </li>
         ))}
             <NavLink
               to="/contact"
