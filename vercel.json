@@ -14,5 +14,8 @@
         { "key": "Content-Encoding", "value": "br" }
       ]
     }
+  ],
+  "rewrites": [
+    { "source": "/(.*)", "destination": "/index.html" }
   ]
 }
