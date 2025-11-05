@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - Page Not Found | Techrayos</title>
+    <meta name="robots" content="noindex, follow" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <!-- ✅ TailwindCSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      body {
+        font-family: "Inter", sans-serif;
+        opacity: 0;
+        animation: fadeIn 0.8s ease forwards;
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes float {
+        0%, 100% { transform: translateY(0); }
+        50% { transform: translateY(-10px); }
+      }
+      .animate-float {
+        animation: float 6s ease-in-out infinite;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-neutral-50 text-neutral-800 dark:bg-neutral-950 dark:text-neutral-100 flex items-center justify-center min-h-screen relative overflow-hidden px-6"
+  >
+    <!-- Background Blobs -->
+    <div class="absolute inset-0 pointer-events-none -z-10">
+      <div
+        class="absolute left-1/2 top-1/4 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl animate-float"
+        style="background: radial-gradient(closest-side, rgba(99,102,241,0.35), transparent);"
+      ></div>
+      <div
+        class="absolute right-10 bottom-10 h-64 w-64 rounded-full blur-3xl animate-float"
+        style="animation-delay: 3s; background: radial-gradient(closest-side, rgba(34,197,94,0.35), transparent);"
+      ></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="text-center max-w-2xl animate-fade-in">
+      <!-- Techrayos Logo -->
+      <a href="/" class="inline-flex items-center gap-2 mb-6">
+        <img
+          src="./logo.png"
+          alt="Techrayos Logo"
+          class="h-10 w-auto drop-shadow-md transition hover:scale-105"
+        />
+        <span class="text-2xl font-extrabold bg-gradient-to-r from-indigo-500 to-emerald-500 bg-clip-text text-transparent">
+          Techrayos
+        </span>
+      </a>
+
+      <!-- Heading -->
+      <p class="text-sm font-medium tracking-wider text-neutral-500 dark:text-neutral-400">OOPS!</p>
+      <h1 class="mt-2 text-6xl sm:text-7xl font-extrabold">
+        4<span class="text-indigo-500">0</span>4
+      </h1>
+      <p class="mt-4 text-neutral-600 dark:text-neutral-300 text-base sm:text-lg">
+        The page you are looking for doesn’t exist or may have been moved.
+      </p>
+
+      <!-- Buttons -->
+      <div class="mt-8 flex flex-col sm:flex-row justify-center items-center gap-3">
+        <a
+          href="/"
+          class="inline-flex items-center gap-2 rounded-2xl bg-indigo-600 px-4 py-2 text-white shadow-lg shadow-indigo-600/20 transition hover:brightness-110 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        >
+          🏠 Go Home
+        </a>
+        <button
+          type="button"
+          onclick="goBack()"
+          class="inline-flex items-center gap-2 rounded-2xl border border-neutral-300 px-4 py-2 text-neutral-700 transition hover:bg-neutral-100 focus:outline-none focus:ring-2 focus:ring-neutral-300 dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800 dark:focus:ring-neutral-700"
+        >
+          ← Go Back
+        </button>
+      </div>
+
+      <!-- Illustration -->
+      <svg
+        role="img"
+        aria-label="Lost in space illustration"
+        viewBox="0 0 400 120"
+        class="mx-auto mt-10 w-full max-w-xl"
+      >
+        <circle
+          cx="60"
+          cy="60"
+          r="40"
+          class="fill-indigo-500/10 dark:fill-indigo-400/10"
+        ></circle>
+        <circle
+          cx="340"
+          cy="60"
+          r="30"
+          class="fill-emerald-500/10 dark:fill-emerald-400/10"
+        ></circle>
+        <path
+          d="M10,90 C80,10 320,10 390,90"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+        ></path>
+        <circle
+          cx="200"
+          cy="60"
+          r="6"
+          fill="currentColor"
+        >
+          <animate
+            attributeName="cx"
+            values="200;380;20;200"
+            dur="8s"
+            repeatCount="indefinite"
+          />
+        </circle>
+      </svg>
+
+      <!-- Footer -->
+      <p class="mt-10 text-xs text-neutral-500 dark:text-neutral-400">
+        If you think this is a mistake, contact our
+        <a href="/contact" class="text-indigo-500 hover:underline">support team</a>.
+      </p>
+    </main>
+
+    <script>
+      function goBack() {
+        if (window.history.length > 1) {
+          window.history.back();
+        } else {
+          window.location.href = "/";
+        }
+      }
+    </script>
+  </body>
+</html>
+
