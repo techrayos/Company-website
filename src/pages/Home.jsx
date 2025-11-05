@@ -9,7 +9,7 @@ import {
 import { Link, NavLink } from "react-router-dom";
 
 // Lazy-load heavy sections
-const OurProducts = lazy(() => import("./../components/OurProducts"));
+const OurProducts = lazy(() => import("../components/OurProducts"));
 const Industries = lazy(() => import("../components/Industries"));
 const Contact = lazy(() => import("../components/Contact"));
 const Technology = lazy(() => import("../components/Technology"));
