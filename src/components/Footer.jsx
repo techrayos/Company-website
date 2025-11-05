@@ -41,7 +41,7 @@ export default function Footer() {
             Company
           </h3>
           <ul className="space-y-2 text-sm">
-            {["About", "Services", "Portfolio", "Technology", "Contact"].map(
+            {["About", "Services", "Technology", "Contact"].map(
               (item) => (
                 <li key={item}>
                   <Link
@@ -238,7 +238,7 @@ export default function Footer() {
       <div className="relative z-10 text-center text-gray-800 dark:text-gray-100 text-sm mt-10 border-t border-gray-800 pt-4 py-10 md:py-0 md:pt-5 md:px-20 flex flex-col md:flex-row justify-between items-center">
         <div></div>
         © 2025 Techrayos. All rights reserved.
-        <div className="flex gap-5">
+        <div className="flex gap-5 py-2 md:py-0">
           <Link to="/privacy-policy" className="hover:text-blue-600 dark:hover:text-blue-400">Privacy Policy</Link>
           <Link to="/terms-and-conditions" className="hover:text-blue-600 dark:hover:text-blue-400">Terms & Conditions</Link>
         </div>

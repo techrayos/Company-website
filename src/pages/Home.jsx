@@ -126,7 +126,7 @@ export default function Home() {
                 className="mt-8 md:mt-12"
               >
                 <Link
-                  to="/portfolio"
+                  to="/our-works"
                   className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-5 md:px-8 py-2 md:py-3 rounded-full hover:from-blue-700 hover:to-blue-800 transition-all shadow-lg hover:shadow-xl text-lg font-medium"
                 >
                   <span>How We Work</span>

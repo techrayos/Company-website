@@ -114,7 +114,7 @@ export default function IndustriesLayout({
         {features.map((feature, index) => {
           const [expanded, setExpanded] = useState(false);
           const isEven = index % 2 === 0;
-          const maxWords = 40;
+          const maxWords = 20;
           const textWords = feature.description.split(" ");
           const isLong = textWords.length > maxWords;
           const displayedText = expanded

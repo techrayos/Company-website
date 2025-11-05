@@ -128,13 +128,13 @@ export default function BrandAndDevelopmentHero() {
               variants={fadeUp}
               className="mt-8 flex flex-wrap justify-center sm:justify-start gap-3"
             >
-              <button className="group relative overflow-hidden rounded-2xl bg-black px-6 py-4 text-base font-semibold text-white shadow-lg transition hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] dark:bg-white dark:text-black">
+              <Link to="/contact" className="group relative overflow-hidden rounded-2xl bg-black px-6 py-4 text-base font-semibold text-white shadow-lg transition hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] dark:bg-white dark:text-black">
                 <span className="relative z-10 flex items-center">
                   Start Your Brand{" "}
                   <ArrowRight className="ml-2 inline h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </span>
                 <span className="absolute inset-0 scale-0 bg-gradient-to-r from-white/30 to-transparent opacity-30 transition-all duration-500 group-hover:scale-150" />
-              </button>
+              </Link>
               <Link
                 to="/brand-case-studies"
                 className="inline-flex items-center rounded-2xl border border-neutral-300/70 px-5 py-4 text-sm font-medium text-neutral-700 backdrop-blur-md transition hover:border-neutral-400 hover:bg-white/70 dark:border-white/10 dark:text-neutral-200 dark:hover:bg-white/10"
