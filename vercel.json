@@ -3,7 +3,6 @@
   "outputDirectory": "dist",
   "framework": "vite",
   "installCommand": "npm install",
-  "ignoreCommand": "echo 'No build ignored'",
   "cleanUrls": true,
   "trailingSlash": false,
   "headers": [
