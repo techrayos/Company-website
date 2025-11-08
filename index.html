@@ -2,19 +2,54 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image" href="./logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Techrayos</title>
-    <!-- Cloudflare Turnstile Script -->
+    <title>Techrayos | Transforming Ideas into Digital Solutions</title>
+
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml" />
+
+    <!-- ✅ Favicon (Browser + Google Search Logo) -->
+    <link rel="icon" type="image/png" href="/logo.png" />
+    <link rel="apple-touch-icon" href="/logo.png" />
+
+    <!-- ✅ SEO Meta Tags -->
+    <meta name="description" content="Techrayos delivers powerful digital solutions, helping businesses transform ideas into impactful technology — from web development to cloud and AI solutions." />
+    <meta name="keywords" content="Techrayos, software company, IT solutions, web development, app development, digital transformation" />
+    <meta name="author" content="Techrayos" />
+
+    <!-- ✅ Open Graph (For Google, LinkedIn, Facebook) -->
+    <meta property="og:site_name" content="Techrayos" />
+    <meta property="og:title" content="Techrayos | Digital Transformation Company" />
+    <meta property="og:description" content="We help organizations scale through strategic digital solutions — from web, mobile, and AI to business automation." />
+    <meta property="og:image" content="https://www.techrayos.com/logo.png" />
+    <meta property="og:url" content="https://www.techrayos.com" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- ✅ Structured Data (Logo + Social Profiles) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "Techrayos",
+        "url": "https://www.techrayos.com",
+        "logo": "https://www.techrayos.com/logo.png",
+        "sameAs": [
+          "https://www.linkedin.com/company/techrayos/",
+          "https://www.instagram.com/techrayos_official/"
+        ]
+      }
+    </script>
+
+    <!-- ✅ Cloudflare Turnstile Script -->
     <script
       src="https://challenges.cloudflare.com/turnstile/v0/api.js"
       async
       defer
     ></script>
 
+    <!-- ✅ Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?render=6Le5XgEsAAAAACYjMnIOyE0wvQyx488T0sCYJnBM"></script>
 
-    <!-- Global callback for Turnstile widget -->
+    <!-- ✅ Turnstile Callback -->
     <script>
       function turnstileCallback(token) {
         window.lastTurnstileToken = token;
@@ -24,9 +59,12 @@
       }
     </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+
+    <!-- ✅ Dark Mode Theme Handling -->
     <script>
       if (
         localStorage.theme === "dark" ||

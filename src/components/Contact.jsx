@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { motion } from "framer-motion";
 import { FiMail, FiPhone, FiPhoneCall } from "react-icons/fi";
+import { Helmet } from "react-helmet-async";
 
 export default function Contact() {
   const [form, setForm] = useState({
@@ -127,6 +128,15 @@ export default function Contact() {
   }
 
   return (
+    <>
+    <Helmet>
+        <title>Contact Us | Techrayos</title>
+        <meta
+          name="description"
+          content="Get in touch with Techrayos for web, app, or digital transformation solutions. Let’s build something amazing together."
+        />
+        <meta property="og:url" content="https://www.techrayos.com/contact" />
+      </Helmet>
     <section
       id="contact"
       className="py-16 bg-white dark:bg-gradient-to-br from-gray-900 to-gray-800 mt-20 transition-all duration-300"
@@ -167,7 +177,7 @@ export default function Contact() {
               whileHover={{ scale: 1.05 }}
               className="flex items-center gap-4 group cursor-pointer"
               onClick={() =>
-                (window.location.href = "mailto:info.techrayos@gmail.com")
+                (window.location.href = "mailto:info@techrayos.com")
               }
             >
               <motion.div
@@ -182,7 +192,7 @@ export default function Contact() {
               <div>
                 <h4 className="font-semibold text-lg">Email Us</h4>
                 <p className="text-blue-500 font-medium">
-                  info.techrayos@gmail.com
+                  info@techrayos.com
                 </p>
               </div>
             </motion.div>
@@ -335,5 +345,6 @@ export default function Contact() {
         </div>
       </div>
     </section>
+    </>
   );
 }

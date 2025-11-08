@@ -3,6 +3,7 @@ import PageTransition from "../components/PageTransition";
 import { motion } from "framer-motion";
 import { ExternalLink, BookOpen } from "react-feather";
 import WorkFlow from "../components/WorkFlow";
+import { Helmet } from "react-helmet-async";
 
 const projects = [
   {
@@ -108,6 +109,15 @@ export default function Portfolio() {
     }
 
   return (
+    <>
+     <Helmet>
+        <title>Portfolio | Techrayos</title>
+        <meta
+          name="description"
+          content="See how Techrayos has transformed businesses through digital innovation — explore our portfolio of successful projects."
+        />
+        <meta property="og:url" content="https://www.techrayos.com/our-works" />
+      </Helmet>
     <PageTransition>
       <section className="w-full mx-auto px-5 py-20 bg-gray-50 dark:bg-gray-900 min-h-screen">
         <div className="max-w-7xl mx-auto">
@@ -231,5 +241,6 @@ export default function Portfolio() {
         </div>
       </section>
     </PageTransition>
+    </>
   );
 }
