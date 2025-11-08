@@ -1,17 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- 🔤 Character & Viewport -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- 🧭 Robots & Googlebot -->
     <meta name="robots" content="index, follow" />
     <meta name="googlebot" content="index, follow" />
+
+    <!-- 🔐 Google Verification -->
     <meta
       name="google-site-verification"
       content="bykZmW9IwoLHoOpKJghyHB8mvd4Bg4L5zM-zGcK2kwM"
     />
 
+    <!-- 🏷️ Title & Branding -->
     <title>Techrayos | Transforming Ideas into Digital Solutions</title>
 
+    <!-- 🔗 Sitemap -->
     <link
       rel="sitemap"
       type="application/xml"
@@ -19,11 +26,11 @@
       href="/sitemap.xml"
     />
 
-    <!-- ✅ Favicon (Browser + Google Search Logo) -->
+    <!-- 🖼️ Favicon + Touch Icon -->
     <link rel="icon" type="image/png" href="/logo.png" />
     <link rel="apple-touch-icon" href="/logo.png" />
 
-    <!-- ✅ SEO Meta Tags -->
+    <!-- 🧠 SEO Meta -->
     <meta
       name="description"
       content="Techrayos delivers powerful digital solutions, helping businesses transform ideas into impactful technology — from web development to cloud and AI solutions."
@@ -34,7 +41,13 @@
     />
     <meta name="author" content="Techrayos" />
 
-    <!-- ✅ Open Graph (For Google, LinkedIn, Facebook) -->
+    <!-- 🧩 Schema.org Microdata (backup for logo) -->
+    <meta itemprop="name" content="Techrayos" />
+    <meta itemprop="url" content="https://www.techrayos.com" />
+    <meta itemprop="logo" content="https://www.techrayos.com/logo.png" />
+
+    <!-- 🌐 Open Graph -->
+    <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Techrayos" />
     <meta
       property="og:title"
@@ -46,9 +59,17 @@
     />
     <meta property="og:image" content="https://www.techrayos.com/logo.png" />
     <meta property="og:url" content="https://www.techrayos.com" />
-    <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- Google tag (gtag.js) -->
+    <!-- 🐦 Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Techrayos | Digital Solutions Company" />
+    <meta
+      name="twitter:description"
+      content="Empowering brands through innovative digital products and technology."
+    />
+    <meta name="twitter:image" content="https://www.techrayos.com/logo.png" />
+
+    <!-- 📊 Google Analytics (GA4) -->
     <script
       async
       src="https://www.googletagmanager.com/gtag/js?id=G-D6KZEVD8QR"
@@ -59,11 +80,10 @@
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-D6KZEVD8QR");
     </script>
 
-    <!-- ✅ Structured Data (Logo + Social Profiles) -->
+    <!-- 🧱 Structured Data (JSON-LD for Logo + Socials) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -74,18 +94,25 @@
         "sameAs": [
           "https://www.linkedin.com/company/techrayos/",
           "https://www.instagram.com/techrayos_official/"
-        ]
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "telephone": "+91-8903233135",
+          "contactType": "Customer Support",
+          "areaServed": "IN",
+          "availableLanguage": "English"
+        }
       }
     </script>
 
-    <!-- ✅ Cloudflare Turnstile Script -->
+    <!-- 🛡️ Cloudflare Turnstile -->
     <script
       src="https://challenges.cloudflare.com/turnstile/v0/api.js"
       async
       defer
     ></script>
 
-    <!-- ✅ Google reCAPTCHA -->
+    <!-- 🔒 Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js?render=6Le5XgEsAAAAACYjMnIOyE0wvQyx488T0sCYJnBM"></script>
 
     <!-- ✅ Turnstile Callback -->
@@ -103,7 +130,7 @@
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
 
-    <!-- ✅ Dark Mode Theme Handling -->
+    <!-- 🌙 Dark Mode Handling -->
     <script>
       if (
         localStorage.theme === "dark" ||
